@@ -3,12 +3,14 @@ import {
     Box,
     TextField,
     Button,
+    TextareaAutosize,
 } from '@mui/material';
 import axios from 'axios';
 
 const endpointMapping = {
     'Notion': 'notion',
     'Airtable': 'airtable',
+    'HubSpot' : 'hubspot',
 };
 
 export const DataForm = ({ integrationType, credentials }) => {
@@ -30,13 +32,18 @@ export const DataForm = ({ integrationType, credentials }) => {
     return (
         <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column' width='100%'>
             <Box display='flex' flexDirection='column' width='100%'>
-                <TextField
-                    label="Loaded Data"
-                    value={loadedData || ''}
-                    sx={{mt: 2}}
-                    InputLabelProps={{ shrink: true }}
-                    disabled
-                />
+                <TextareaAutosize
+                    style={{
+                        width: "100%",
+                        height: "300px",        
+                        fontFamily: "monospace",
+                        padding: "8px",
+                        resize: "none",       
+                        overflow: "auto"     
+                    }}
+                    value={JSON.stringify(loadedData || "Please Load Data", null, 2)}
+                    readOnly
+                    />
                 <Button
                     onClick={handleLoad}
                     sx={{mt: 2}}
